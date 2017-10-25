@@ -45,19 +45,26 @@ public class Main {
         //If you want the user to enter passenger details, use this method to get input.
         Random randomStop = new Random();
         aBus = new Bus();
-        String[] busPassengers={"Adjoa","Benjamin","Colin","Dwamena","Elizabeth"};
-        String[] stops={"Lake Forest","Silver Spring","Westfield","Olde Towne","Olney"};
+        String[] busPassengerNames={"Adjoa","Benjamin","Colin","Dwamena","Elizabeth"};
+        String[] stopNames={"Lake Forest","Silver Spring","Westfield","Olde Towne","Olney"};
 
-        for(String aPassenger:busPassengers)
+        for(String aPassengerName:busPassengerNames)
         {
-            aBus.board(new Passenger(aPassenger));
+            Passenger passenger = new Passenger(aPassengerName);
 
             //Assign a random bus stop to a passenger
             int myStopNumber = randomStop.nextInt(5);
+
+            BusStop busStop = passenger.getMyStop();
+            busStop.setStopNumber(myStopNumber);
+            busStop.setStopName(stopNames[myStopNumber]);
+
+            aBus.board(passenger);
+
         }
 
         int counter=0;
-        for(String aStop:stops)
+        for(String aStop:stopNames)
         {
             aBus.getStops().add(new BusStop(counter,aStop));
             counter++;
